@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+    <script>
+      function doPrev(fileCtrl,imgPrev)
+      {
+          let [file] = fileCtrl.files
+          if (file) {
+              imgPrev.src = URL.createObjectURL(file)
+          }
+      }
+  </script>
+  <script>
+    $(document).ready(function(){
+      
+      let x= localStorage.getItem("activeuser");
+      $("#txtemail").val(x).prop("readonly",true);
+      alert( "WELCOME:"+x);
+      
+
+      $("#btnsearch").click(function(){
+        let obj={
+          type:"get",
+          url:"/find-influencer-details",
+          data:{
+            txtemail:$("#txtemail").val()
+          }
+
+        }
+        $.ajax(obj).done(function(jsonAry){
+          if(jsonAry.length==0)
+        {
+          alert("invalid id")
+          return
+        }
+        alert(JSON.stringify(jsonAry));
+        $("#txtname").val(jsonAry[0].iname);
+        $("#gender").val(jsonAry[0].gender);
+        $("#dob").val(jsonAry[0].dob);
+        $("#txtaddress").val(jsonAry[0].address);
+        $("#city").val(jsonAry[0].city);
+        $("#txtcontact").val(jsonAry[0].contact);
+        $("#ifields").val(jsonAry[0].ifields.split(","));
+        $("#txtinstagram").val(jsonAry[0].insta);
+        $("#txtfacebook").val(jsonAry[0].facebook);
+        $("#txtyoutube").val(jsonAry[0].youtube);
+        $("#otherinfo").val(jsonAry[0].other)
+        $("#prev").prop("src","uploads/"+jsonAry[0].picpath);
+        $("#hdn").val(jsonAry[0].picpath);
+        }).fail(function(err)
+                    {
+                        alert(err.statusText);
+                    })
+      })
+
+      $("#changePassword").click(function () {
+          let obj = {
+            type: "get",
+            url: "/change-password-process",
+            data: {
+              txtSettingEmail: $("#txtSettingEmail").val(),
+              txtSettingOldPassword: $("#txtSettingOldPassword").val(),
+              txtSettingNewPassword: $("#txtSettingNewPassword").val(),
+              txtSettingConfirmPassword: $("#txtSettingConfirmPassword").val(),
+            },
+          };
+          $.ajax(obj).done(function (resp) {
+            alert(resp);
+            if (resp == "Password Changed") $("#settingModal").modal("hide");
+            return;
+          });
+        });
+    })
+  </script>
+    
+</head>
+
+<body>
+  <center>
+    <h1><b>PROFILE</b></h1>
+  </center>
+  <div class="container" >
+    <form class="row g-3" method="post" enctype="multipart/form-data">
+      <input type="hidden" name="hdn" id="hdn">
+      <div class="col-sm-4">
+        <label for="inputEmail4" class="form-label">Email</label>
+        <input type="email" id="txtemail" name="txtemail" class="form-control" id="inputEmail4" required> 
+        
+
+      </div>
+      <div  class="col-sm-3" style="margin-top: 50px;">
+        <button type="button" id="btnsearch" >Search</button>
+      </div>
+      <div class="col-sm-4" style="margin-right: 20px;">
+        <img src="" id="prev" alt="" width="100" height="100">
+        <input type="file" name="pics" id="pics" onchange="doPrev(this,prev);"><br>
+                        
+        
+      </div>
+
+      <div class="row g-3">
+        <div class="col-sm-4">
+          NAME<input type="text" class="form-control" placeholder="" aria-label="name" id="txtname" name="txtname" required>
+        </div>
+        <div class="col-sm-2">
+          GENDER
+          <select class="form-select" aria-label="Default select example" id="gender" name="gender" required>
+           
+            <option value="male">MALE</option>
+            <option value="female">FEMALE</option>
+            <option value="other">OTHER</option>
+          </select>
+        </div>
+        <div class="col-sm-2">
+          D.O.B <input type="date" class="form-control" placeholder="dob" aria-label="dob" id="dob" name="dob" required>
+        </div>
+      </div>
+      
+      <div class="row g-3">
+        <div class="col-sm-5">
+         ADDRESS <input type="text" class="form-control" placeholder="" aria-label="address" id="txtaddress" name="txtaddress" required >
+        </div>
+        <div class="col-sm-3">
+          CITY
+          <select class="form-select" aria-label="Default select example" id="city" name="city" required>
+            <option selected></option>
+            <option value="amritsar">AMRITSAR</option>
+            <option value="bathinda">BATHINDA</option>
+            <option value="ludhiana">LUDHIANA</option>
+            <option value="patiala">PATIALA</option>
+            <option value="chandigarh">CHANDIGARH</option>
+            <option value="jalandhar">JALANDHAR</option>
+          </select>
+        </div>
+        <div class="col-sm-3">
+          CONTACT NO.<input type="text" class="form-control" placeholder="" aria-label="contact" id="txtcontact" name="txtcontact" required>
+        </div>
+      </div>
+      <div class="row g-3">
+        <div class="col-sm-3">
+          FIELDS
+          <select multiple size="4" class="form-select" aria-label="Default select example" id="ifields" name="ifields" required>
+            <option selected disabled>SELECT</option>
+            <option value="singer">SINGER</option>
+            <option value="dancer">DANCER</option>
+            <option value="comedian">COMEDIAN</option>
+            <option value="actor">ACTOR</option>
+            <option value="wrestler">WRESTLER</option>
+            <option value="vlogger">VLOGGER</option>
+            <option value="musician">MUSICIAN</option>
+          </select>
+        </div>
+        <div class="col-sm-3">
+          <i class="fa-brands fa-instagram"></i> INSTAGRAM<input type="text" class="form-control" placeholder="" aria-label="instagram" id="txtinstagram" name="txtinstagram" required>
+        </div>
+        <div class="col-sm-3">
+          <i class="fa-brands fa-facebook" style="color: #4318dc;"></i> FACEBOOK<input type="text" class="form-control" placeholder="" aria-label="facebook" id="txtfacebook" name="txtfacebook" required>
+         </div>
+         <div class="col-sm-3">
+          <i class="fa-brands fa-youtube" style="color: #f82020;"></i>YOUTUBE <input type="text" class="form-control" placeholder="" aria-label="youtube" id="txtyoutube" name="txtyoutube" required>
+         </div>
+      </div>
+      <center><div class="col-md-6">
+        <span class="input-group-text">OTHER INFO</span>
+        <textarea class="form-control" aria-label="With textarea" id="otherinfo" name="otherinfo" class="otherinfo"></textarea>
+      </div></center>
+
+
+
+
+<center>
+      <div class="col-12">
+        <input  type="submit" class="btn btn-primary" formaction="/inprofile-submit" value="SAVE">
+        <input type="submit" class="btn btn-secondary" formaction="/iprofile-update" value="UPDATE">
+      </div></center>
+    </form>
+  </div>
+</body>
+
+</html>

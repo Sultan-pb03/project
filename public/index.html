@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function(){
+      
+              $("#signup").click(function(){
+                let obj={
+                  type:"get",
+                  url:"/signup-process",
+                  data:{
+                    txtemail:$("#txtemail").val(),
+                    txtpwd:$("#txtpwd").val(),
+                    combo:$("#combo").val()
+                  }
+                }
+                $.ajax(obj).done(function(resp){
+                  alert(resp)
+                })
+                .fail(function(err){
+                  resp.send(err.statusText)
+                })
+              })
+      
+              $("#login").click(function(){
+      
+                let obj={
+                  type:"get",
+                  url:"/login-process",
+                  data:{
+                    txtemaill:$("#txtemaill").val(),
+                    txtpwdd:$("#txtpwdd").val()
+                  }
+                }
+                $.ajax(obj).done(function(resp){
+                  
+                  if(resp=="influencer")
+                {
+                  location.href="/influencer-dash"
+                  localStorage.setItem("activeuser",$("#txtemaill").val())
+                  alert(activeuser);
+                }
+                else if (resp === "client")
+                              {
+                                  location.href = "client-dash.html";
+                                 
+                              }
+      
+                          else
+                              alert(resp)
+                })
+                .fail(function(err){
+                  alert(err.statusText)
+                })
+              })
+            })
+          </script>
+</head>
+
+<body>
+    <nav class="navbar fixed-top bg-body-tertiary" style="margin-right: -10px;">
+        <div class="container-fluid row" style="background-color: #CCCCFF; margin-top: -10px;margin-bottom: -10px;">
+          <a class="navbar-brand col-md-6" href="#">
+            <img src="pics/fame.jfif" alt="Logo" width="45" height="45" style="float: left;" class="d-inline-block align-text-top">
+            <h2 style="float: left;margin-left: 20px;">FAME VIBE</h2>
+          </a>
+          <div class="col-md-5" >
+            <button type="button" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#exampleModal">SIGNUP </button>
+<button type="button" class="btn btn-secondary "  data-bs-toggle="modal" data-bs-target="#exampleModall">LOGIN</button>
+            <a href="#os" class="btn btn-secondary">Our Services</a>
+            <a href="#ot" class="btn btn-secondary">Our Team</a>
+            <a href="#ru" class="btn btn-secondary">Reach Us</a>
+          </div>
+        </div>
+      </nav>
+    <!------------------------------------------------------------------------------------------------->
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="1500">
+                <img src="pics/influ 7.webp" class="d-block w-100" alt="..." width="1500" height="600">
+            </div>
+            <div class="carousel-item" data-bs-interval="1500">
+                <img src="pics/influ 4.webp" class="d-block w-100" alt="..." width="1500" height="600">
+            </div>
+            <div class="carousel-item" data-bs-interval="1500" >
+                <img src="pics/infl 3.webp" class="d-block w-100" alt="..." height="600">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    <div id="os" style="background-color:#CCCCFF;">
+        <center>
+            <h3><b>OUR SERVICES</b></h3>
+        </center>
+    </div>
+    <!---------------------------------------------------------------------------------->
+    <div class="container">
+        <div class="row">
+            <div class="card" style="width: 16rem; margin: auto;">
+                <img class="card-img-top" src="pics/collaboration.jfif" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">COLLABORATION</h5>
+                    <p class="card-text">Connect with influencers through our site: define goals, select influencers,
+                        manage campaigns, and track results.</p>
+                </div>
+            </div>
+            <div class="card" style="width: 16rem; margin: auto;">
+                <img class="card-img-top" src="pics/meetn greeeeet.jpg" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">MEET & GREET</h5>
+                    <p class="card-text">Arrange meet-and-greets with influencers through our website by booking
+                        sessions and managing events seamlessly.
+                    </p>
+                </div>
+            </div>
+            <div class="card" style="width: 16rem; margin: auto;">
+                <img class="card-img-top" src="pics/find influ.jfif" alt="Card image cap" height="155">
+                <div class="card-body">
+                    <h5 class="card-title">FIND INFLUENCERS</h5>
+                    <p class="card-text"> Discover influencers on our website by exploring curated profiles and
+                        recommendations tailored to your brand's needs.
+                    </p>
+                </div>
+            </div>
+            <div class="card" style="width: 16rem; margin: auto;">
+                <img class="card-img-top" src="pics/event promotion.jfif" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">EVENT PROMOTIONS</h5>
+                    <p class="card-text">Promote your event through our website by connecting with influencers who can
+                        amplify your reach and engagement.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!------------------------------------------------------------------------------------------------------------->
+
+    <div id="ot" style="background-color:#CCCCFF;">
+        <center>
+            <h3><b>OUR TEAM</b></h3>
+        </center>
+    </div>
+<div style="display: flex ; ">
+    <div class="card mb-3"  style="max-width: 540px; margin-left: 70px; ">
+        <div class="row g-0">
+            <div class="col-md-4">
+                
+                <center><img src="pics/rajesh sir.jfif"   height="200" width="180"  alt="..." ></center>
+            
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h4 class="card-title">RAJESH BANSAL</h4>
+                    <h5 class="card-title">Author Of Real Java</h5>
+                    <p class="card-text">This website was created under the guidance of Rajesh Bansal, whose invaluable expertise, support, and insights greatly contributed to its development and overall success.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-3"  style="max-width: 540px; margin-left: 70px; ">
+        <div class="row g-0">
+            <div class="col-md-4">
+                
+                <center><img src="pics/DSC09950.JPG"   height="200" width="180"  alt="..." ></center>
+            
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h4 class="card-title">SULTAN GOYAL</h4>
+                    <h5 class="card-title">DEVELOPED BY</h5>
+                    <p class="card-text">This website was developed by me, combining creativity and effort to bring you a user-friendly experience. I hope you enjoy exploring its features and content!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
+    <!---------------------------------------------------------------------->
+
+    <div id="ru" style="background-color:#CCCCFF;">
+        <center>
+            <h3><b>REACH US</b></h3>
+        </center>
+    </div>
+    <center>
+        <iframe
+            src=https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3447.880571599542!2d74.9497478089434!3d30.211955910513588!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391732a4f07278a9%3A0x4a0d6293513f98ce!2sBanglore%20Computer%20Education!5e0!3m2!1sen!2sin!4v1718192487402!5m2!1sen!2sin"
+            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+    <!--MODAL SIGN UP-->
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">SIGNUP</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" id=txtemail name=txtemail class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" id="txtpwd" name="txtpwd" class="form-control" id="exampleInputPassword1">
+            </div>
+            <!--<div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>-->
+            <select class="form-select" aria-label="Default select example" id="combo" name="combo">
+              <option selected>select your category</option>
+              <option value="client">CLIENT</option>
+              <option value="influencer">INFLUENCER</option>
+             
+            </select>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="signup">Signup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  <!--modal login-->
+  <div class="modal fade" id="exampleModall" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">LOGIN</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Email address</label>
+              <input type="email" id=txtemaill name=txtemaill class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Password</label>
+              <input type="password" id="txtpwdd" name="txtpwdd" class="form-control" id="exampleInputPassword1">
+            </div>
+           
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="login">LOGIN</button>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+
+</body>
+
+</html>
